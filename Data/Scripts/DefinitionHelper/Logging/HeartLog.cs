@@ -15,7 +15,7 @@ namespace DefinitionHelper.Logging
         /// <param name="message"></param>
         public static void Info(string message)
         {
-            _._Log("[INFO] " + message);
+            _?._Log($"[INFO] {message}");
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace DefinitionHelper.Logging
         public static void Debug(string message)
         {
             #if DEBUG
-            _._Log("[DEBUG] " + message);
+            _?._Log($"[DEBUG] {message}");
             #endif
         }
 
@@ -36,7 +36,7 @@ namespace DefinitionHelper.Logging
         /// <param name="callingType"></param>
         public static void Exception(Exception ex, Type callingType)
         {
-            _._LogException(ex, callingType);
+            _?._LogException(ex, callingType);
         }
 
 
@@ -45,20 +45,21 @@ namespace DefinitionHelper.Logging
             _?.Close();
             _ = this;
             _writer = MyAPIGateway.Utilities.WriteFileInLocalStorage("debug.log", typeof(HeartLog));
-            _writer.WriteLine("LogStart");
-            _writer.Flush();
+            _Log("Log writer opened.");
+            _Log($"Local DateTime: {DateTime.Now:G}");
         }
 
         public void Close()
         {
+            _Log("Closing log writer.");
             _writer.Close();
             _ = null;
         }
 
         private void _Log(string message)
         {
-            _writer.WriteLine($"{DateTime.UtcNow:HH:mm:ss}: {message}");
-            _writer.Flush();
+            _writer?.WriteLine($"{DateTime.UtcNow:HH:mm:ss}: {message}");
+            _writer?.Flush();
         }
 
         private void _LogException(Exception ex, Type callingType)
