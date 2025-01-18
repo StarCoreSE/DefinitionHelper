@@ -208,7 +208,7 @@ namespace Orrery.HeartModule.Shared.Definitions
         private Action<string> _logInfo;
 
         #endregion
-
+        
         #region API Initialization
 
         private bool _isRegistered;
@@ -310,6 +310,8 @@ namespace Orrery.HeartModule.Shared.Definitions
                 // We really really want to notify the player if something goes wrong here.
                 MyLog.Default.WriteLineAndConsole($"{_modContext.ModName}: Exception in DefinitionApi! " + ex);
                 MyAPIGateway.Utilities.ShowMessage(_modContext.ModName, "Exception in DefinitionApi!\n" + ex);
+                if (_logInfo != null)
+                    LogInfo(ex.ToString());
             }
         }
 
