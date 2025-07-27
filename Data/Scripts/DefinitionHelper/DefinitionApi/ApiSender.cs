@@ -9,7 +9,8 @@ using VRageMath;
 
 namespace DefinitionHelper.DefinitionApi
 {
-    [MySessionComponentDescriptor(MyUpdateOrder.NoUpdate)]
+    // this should be loaded first
+    [MySessionComponentDescriptor(MyUpdateOrder.NoUpdate, int.MinValue)]
     internal class ApiSender : MySessionComponentBase
     {
         private const long DefinitionApiChannel = 8754; // https://xkcd.com/221/
