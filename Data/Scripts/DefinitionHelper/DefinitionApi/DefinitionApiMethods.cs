@@ -17,6 +17,7 @@ namespace DefinitionHelper.DefinitionApi
             ["GetDefinition"] = new Func<string, Type, byte[]>(DefinitionManager.GetDefinition),
             ["GetDefinitionsOfType"] = new Func<Type, string[]>(DefinitionManager.GetDefinitionsOfType),
             ["RemoveDefinition"] = new Action<string, Type>(DefinitionManager.RemoveDefinition),
+            ["HasDefinition"] = new Func<string, Type, bool>(DefinitionManager.HasDefinition),
 
             // Delegates
             ["RegisterDelegates"] = new Action<string, Type, Dictionary<string, Delegate>>(DefinitionManager.RegisterDelegates),

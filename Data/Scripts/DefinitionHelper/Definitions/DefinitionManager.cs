@@ -169,5 +169,12 @@ namespace DefinitionHelper.Definitions
             Removal = 1,
             DelegateUpdate = 2,
         }
+
+        public static bool HasDefinition(string definitionId, Type type)
+        {
+            type = GetClosestType(type);
+
+            return SerializedDefinitions.ContainsKey(type) && SerializedDefinitions[type].ContainsKey(definitionId);
+        }
     }
 }

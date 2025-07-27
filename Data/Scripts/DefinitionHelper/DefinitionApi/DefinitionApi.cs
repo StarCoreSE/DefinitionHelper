@@ -1,14 +1,11 @@
 ﻿using Sandbox.ModAPI;
-using System.Runtime.Remoting.Channels;
 using System;
 using VRage.Game.ModAPI;
-using VRage.Game;
 using VRage.Utils;
 using System.Collections.Generic;
 using VRage;
-using VRageMath;
 
-namespace Orrery.HeartModule.Shared.Definitions
+namespace DefinitionHelper.DefinitionApi
 {
     /// <summary>
     ///     Class used to communicate with the DefinitionHelper mod. <br /><br />
@@ -127,6 +124,14 @@ namespace Orrery.HeartModule.Shared.Definitions
         /// <param name="definitionId"></param>
         public void RemoveDefinition<T>(string definitionId) where T : class => _removeDefinition?.Invoke(definitionId, typeof(T));
 
+        /// <summary>
+        /// Checks if a given definition and its type exist.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="definitionId"></param>
+        /// <returns></returns>
+        public bool HasDefinition<T>(string definitionId) where T : class => _hasDefinition?.Invoke(definitionId, typeof(T)) ?? false;
+
         #endregion
 
         #region Delegates
@@ -194,6 +199,7 @@ namespace Orrery.HeartModule.Shared.Definitions
         private Func<string, Type, byte[]> _getDefinition;
         private Func<Type, string[]> _getDefinitionsOfType;
         private Action<string, Type> _removeDefinition;
+        private Func<string, Type, bool> _hasDefinition;
 
         // Delegates
         private Action<string, Type, Dictionary<string, Delegate>> _registerDelegates;
@@ -230,6 +236,7 @@ namespace Orrery.HeartModule.Shared.Definitions
             SetApiMethod("GetDefinition", ref _getDefinition);
             SetApiMethod("GetDefinitionsOfType", ref _getDefinitionsOfType);
             SetApiMethod("RemoveDefinition", ref _removeDefinition);
+            SetApiMethod("HasDefinition", ref _hasDefinition);
 
             // Delegates
             SetApiMethod("RegisterDelegates", ref _registerDelegates);
