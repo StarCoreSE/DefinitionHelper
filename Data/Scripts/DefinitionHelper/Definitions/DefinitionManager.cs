@@ -115,7 +115,7 @@ namespace DefinitionHelper.Definitions
             type = GetClosestType(type);
 
             if (!DefinitionDelegates[type].ContainsKey(definitionId))
-                throw new Exception($"Invalid DefinitionId {type.FullName}::{definitionId}");
+                return null;
             return DefinitionDelegates[type][definitionId];
         }
 
