@@ -114,9 +114,11 @@ namespace DefinitionHelper.Definitions
         {
             type = GetClosestType(type);
 
-            if (!DefinitionDelegates[type].ContainsKey(definitionId))
+            Dictionary<string, Dictionary<string, Delegate>> typeDelegates;
+            Dictionary<string, Delegate> idDelegates;
+            if (!DefinitionDelegates.TryGetValue(type, out typeDelegates) || !typeDelegates.TryGetValue(definitionId, out idDelegates))
                 return null;
-            return DefinitionDelegates[type][definitionId];
+            return idDelegates;
         }
 
         /// <summary>
